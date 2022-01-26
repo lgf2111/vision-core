@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request
 from app import app, db, bcrypt
-from app.forms import LoginForm, RegistrationForm, UpdateCustomerAccountForm
+from app.forms import LoginForm, RegistrationForm, UpdateCustomerAccountForm, CustomerRequestForm
 from app.models import Customer
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import datetime
@@ -35,7 +35,7 @@ def faq():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('account'))
+        return redirect(url_for('customerAaccount'))
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(
@@ -46,7 +46,7 @@ def register():
         db.session.commit()
         login_user(user, remember=True)
         flash(f"Your account has been created! You are now logged in!", "success")
-        return redirect(url_for("account"))
+        return redirect(url_for("customerAccount"))
 
     return render_template(
         'authentication/register.html',
@@ -58,14 +58,14 @@ def register():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('account'))
+        return redirect(url_for("customerAccount"))
     form = LoginForm()
     if form.validate_on_submit():
         user = Customer.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=True)
             next_page = request.args.get("next")
-            return redirect(next_page) if next_page else redirect(url_for('account'))
+            return redirect(next_page) if next_page else redirect(url_for("customerAccount"))
         else:
             flash("Login Unsuccessful. Please check email and password", "danger")
 
@@ -107,7 +107,7 @@ def editCustomerAccount():
             form.password.data).decode('utf-8')
         db.session.commit()
         flash('Your account details have been updated!', 'success')
-        redirect(url_for('account'))
+        redirect(url_for("customerAccount"))
 
     return render_template(
         'customer/editAccount.html',
@@ -132,10 +132,20 @@ def deactivateAccount():
 @app.route('/cusReq')
 @login_required
 def customerRequest():
+    form = CustomerRequestForm()
+    img_path = '../static/public/'
+    prodList = [
+        {'id': 1, 'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'desc': 'Gigabyte X570 | Aorus Pro Wifi'},
+        {'id': 2, 'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'desc': 'EVGA GeForce RTX | 3080 Ti'},
+        {'id': 3, 'img': img_path + 'Gigabyte_X570_Aorus_Pro_Wifi.png', 'desc': 'Gigabyte X570 | Aorus Pro Wifi'},
+        {'id': 4, 'img': img_path + 'EVGA_GeForce_RTX_3080_Ti.png', 'desc': 'EVGA GeForce RTX | 3080 Ti'},
+    ]
     return render_template(
         'customer/request.html',
         title='Customer Request',
-        navigation='Request'
+        navigation='Request',
+        prodList = prodList,
+        form=form
     )
 
 
