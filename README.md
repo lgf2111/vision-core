@@ -193,20 +193,20 @@ Project Link: [https://github.com/lgf2111/vision-core](https://github.com/lgf211
 ## The Team
 
 - Isaac Koh
-  &nbsp;
-  [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/isaac-koh-bb6b32210/)
-- Wu Yuewei
-  &nbsp;
-  [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/wu-yuewei/)
-- Lee Guan Feng
-  &nbsp;
-  [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/lee-guan-feng/)
+  - Project Leader
+  - [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/isaac-koh-bb6b32210/)
+- Yuewei
+  - Lead Developer
+  - [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/wu-yuewei/)
+- Guan Feng
+  - Backend Developer
+  - [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/lee-guan-feng/)
 - Jon Loh
-  &nbsp;
-  [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/jon-loh/)
+  - Frontend Developer
+  - [![LinkedIn][linkedin-shield]](https://www.linkedin.com/in/jon-loh/)
 - Chin Shuan
-  &nbsp;
-  [![Instagram][instagram-shield]](https://www.instagram.com/chinshuan.cchan/)
+  - Designer
+  - [![Instagram][instagram-shield]](https://www.instagram.com/chinshuan.cchan/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
