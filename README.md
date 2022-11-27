@@ -79,7 +79,7 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Vision Core Screen Shot][product-screenshot]](https://vision-core.lgf2111.repl.co/)
 
 <!-- Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `lgf2111`, `vision-core`, `LeeGuanFeng4`, `lee-guan-feng`, `gmail`, `lgf2111`, `Vision Core`, `Your go-to solution for all your computer hardware repairs` -->
 
