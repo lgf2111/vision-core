@@ -221,7 +221,10 @@ Project Link: [https://github.com/lgf2111/vision-core](https://github.com/lgf211
 [stars-url]: https://github.com/lgf2111/vision-core/stargazers
 [issues-shield]: https://img.shields.io/github/issues/lgf2111/vision-core.svg?style=for-the-badge
 [issues-url]: https://github.com/lgf2111/vision-core/issues
-[license-shield]: https://img.shields.io/github/license/lgf2111/vision-core.svg?style=for-the-badge
+
+<!-- [license-shield]: https://img.shields.io/github/license/lgf2111/vision-core.svg?style=for-the-badge -->
+
+[license-shield]: https://img.shields.io/badge/license-MIT-green?style=for-the-badge
 [license-url]: https://github.com/lgf2111/vision-core/blob/main/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [instagram-shield]: https://img.shields.io/static/v1?style=for-the-badge&message=Instagram&color=E4405F&logo=Instagram&logoColor=FFFFFF&label=
