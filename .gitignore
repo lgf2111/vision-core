@@ -1,7 +1,6 @@
 node_modules
 __pycache__
-app/__pycache__
-app/.DS_Store
-app/__init__.pyc
-app/static/.DS_Store
-app/static/src/.DS_Store
+*.pyc
+.DS_Store
+.venv
+.env
