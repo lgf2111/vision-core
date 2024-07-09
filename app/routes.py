@@ -12,7 +12,7 @@ from flask_mail import Message
 from datetime import datetime
 import os
 import stripe
-from app.train import bot
+# from app.train import bot
 from functools import wraps
 
 
@@ -714,14 +714,14 @@ def employeeManagementDetailsDelete(employeeID):
 
 
 #Chatbot
-@app.route('/chatbot', methods=['GET','POST'])
-def chatbot():
-    return render_template('public/newChat.html', title='Chat Support')
+# @app.route('/chatbot', methods=['GET','POST'])
+# def chatbot():
+#     return render_template('public/newChat.html', title='Chat Support')
 
-@app.route("/get", methods=['GET','POST'])
-def get_bot_response():
-    userText = request.args.get('msg')
-    return str(bot.get_response(userText))
+# @app.route("/get", methods=['GET','POST'])
+# def get_bot_response():
+#     userText = request.args.get('msg')
+#     return str(bot.get_response(userText))
 #end Chatbot
 
 
