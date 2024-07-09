@@ -7,7 +7,7 @@ import os
 from dotenv import load_dotenv
 import stripe
 
-os.environ['LD_LIBRARY_PATH'] = os.path.join(os.getcwd(),'otp', 'lib')
+# os.environ['LD_LIBRARY_PATH'] = os.path.join(os.getcwd(),'otp', 'lib')
 
 
 basedir = os.path.abspath(os.path.dirname(__file__))
