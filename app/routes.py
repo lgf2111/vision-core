@@ -6,14 +6,13 @@ from app.train import *
 from flask_login import login_user, current_user, logout_user, login_required
 from requests.exceptions import HTTPError
 import json
-# from app.utils import get_google_auth, generate_password, download_picture, save_picture, send_reset_email
-from app.utils import get_google_auth, send_reset_email, generate_password
+from app.utils import get_google_auth, generate_password, download_picture, save_picture, send_reset_email
 from app.config import Auth
 from flask_mail import Message
 from datetime import datetime
 import os
 import stripe
-# from app.train import bot
+from app.train import bot
 from functools import wraps
 
 
@@ -176,7 +175,7 @@ def callback():
                 user.email = email
             user.username = user_data['name']
             user.tokens = json.dumps(token)
-            # user.picture = download_picture(user_data['picture'])
+            user.picture = download_picture(user_data['picture'])
             user.password = bcrypt.generate_password_hash(generate_password()).decode('utf-8')
             db.session.add(user)
             db.session.commit()
@@ -249,10 +248,9 @@ def editCustomerAccount():
         user = Customer.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             if form.picture.data:
-                # picture_file = save_picture(form.picture.data, 'static/src/profile_pics')
-                # # os.remove(os.path.join(current_app.root_path,'static/src/profile_pics',current_user.picture))
-                # current_user.picture = picture_file
-                pass
+                picture_file = save_picture(form.picture.data, 'static/src/profile_pics')
+                # os.remove(os.path.join(current_app.root_path,'static/src/profile_pics',current_user.picture))
+                current_user.picture = picture_file
             current_user.username = form.username.data
             current_user.email = form.email.data
             current_user.contact_no = form.contact_no.data
@@ -362,10 +360,10 @@ def customerCart():
         prodList.append({'img': img_path + product.productPicture, 'desc': product.productDescription})
     form = CustomerRequestForm()
     if form.validate_on_submit():
-        # image_folder = save_picture(form.images.data, path='static/src/request_pics', seperate=True)
+        image_folder = save_picture(form.images.data, path='static/src/request_pics', seperate=True)
         creation_time=datetime.utcnow().strftime(r'%Y-%m-%d %H:%M')
         new_request = Request(productName=form.productName.data,
-                            # images=image_folder, 
+                            images=image_folder, 
                             repairCost=300,
                             description=form.issueDesc.data, 
                             warranty=form.warranty.data,
@@ -449,10 +447,9 @@ def employeeInformationEdit():
     form = UpdateEmployeeAccountForm()
     if form.validate_on_submit():
         if form.picture.data:
-            # picture_file = save_picture(form.picture.data, 'static/src/profile_pics')
+            picture_file = save_picture(form.picture.data, 'static/src/profile_pics')
             # os.remove(part.picture.replace('static','app/static'))
-            # user.picture = picture_file
-            pass
+            user.picture = picture_file
         user.email = form.email.data
         user.contact_no = form.contact.data
         user.address = form.address.data
@@ -501,9 +498,8 @@ def catalogue():
     catalogueData = CatalogueProduct.query.all()
     if form.validate_on_submit():
         if form.picture.data:
-            # picture_file = save_picture(form.picture.data, 'static/src/product_pics')
-            # product = CatalogueProduct(productPicture=picture_file, productName=form.name.data, productDescription=form.description.data, productCost=form.cost.data)
-            product = CatalogueProduct(productName=form.name.data, productDescription=form.description.data, productCost=form.cost.data)
+            picture_file = save_picture(form.picture.data, 'static/src/product_pics')
+            product = CatalogueProduct(productPicture=picture_file, productName=form.name.data, productDescription=form.description.data, productCost=form.cost.data)
         else:
             product = CatalogueProduct(productName=form.name.data, productDescription=form.description.data, productCost=form.cost.data)
         db.session.add(product)
@@ -537,10 +533,9 @@ def catalogueProductEdit(productID):
     product = CatalogueProduct.query.get_or_404(productID)
     if form.validate_on_submit():
         if form.picture.data:
-            # picture_file = save_picture(form.picture.data, 'static/src/product_pics')
+            picture_file = save_picture(form.picture.data, 'static/src/product_pics')
             # os.remove(product.picture.replace('static','app/static'))
-            # product.productPicture = picture_file
-            pass
+            product.productPicture = picture_file
         product.productName = form.name.data
         product.productCost = form.cost.data
         if form.description.data:
@@ -571,9 +566,8 @@ def inventoryManagement():
     inventoryData = Inventory.query.all()
     if form.validate_on_submit():
         if form.picture.data:
-            # picture_file = save_picture(form.picture.data, 'static/src/part_pics')
-            # item = Inventory(partPicture=picture_file, partName=form.name.data, partDescription=form.description.data, partCost=form.cost.data, partQuantity=form.quantity.data)
-            item = Inventory(partName=form.name.data, partDescription=form.description.data, partCost=form.cost.data, partQuantity=form.quantity.data)
+            picture_file = save_picture(form.picture.data, 'static/src/part_pics')
+            item = Inventory(partPicture=picture_file, partName=form.name.data, partDescription=form.description.data, partCost=form.cost.data, partQuantity=form.quantity.data)
         else:
             item = Inventory(partName=form.name.data, partDescription=form.description.data, partCost=form.cost.data, partQuantity=form.quantity.data)
         db.session.add(item)
@@ -607,10 +601,9 @@ def inventoryPartDetailsEdit(partID):
     part = Inventory.query.get_or_404(partID)
     if form.validate_on_submit():
         if form.picture.data:
-            # picture_file = save_picture(form.picture.data, 'static/src/part_pics')
+            picture_file = save_picture(form.picture.data, 'static/src/part_pics')
             # os.remove(part.picture.replace('static','app/static'))
-            # part.partPicture = picture_file
-            pass
+            part.partPicture = picture_file
         part.partName = form.name.data
         part.partCost = form.cost.data
         if form.description.data:
@@ -653,9 +646,8 @@ def employeeManagement():
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         if form.picture.data:
-            # picture_file = save_picture(form.picture.data, 'static/src/profile_pics')
-            # employee = Employee(picture=picture_file, username=form.username.data, email=form.email.data, password=hashed_password, permissions=form.permissions.data,address=form.address.data,contact_no=form.contact.data,creation_datetime=creation_time)
-            pass
+            picture_file = save_picture(form.picture.data, 'static/src/profile_pics')
+            employee = Employee(picture=picture_file, username=form.username.data, email=form.email.data, password=hashed_password, permissions=form.permissions.data,address=form.address.data,contact_no=form.contact.data,creation_datetime=creation_time)
         else:
             employee = Employee(username=form.username.data, email=form.email.data, password=hashed_password, permissions=form.permissions.data,address=form.address.data,contact_no=form.contact.data,creation_datetime=creation_time)
         db.session.add(employee)
@@ -690,10 +682,9 @@ def employeeManagementDetailsEdit(employeeID):
 
     if form.validate_on_submit():
         if form.picture.data:
-            # picture_file = save_picture(form.picture.data, 'static/src/profile_pics')
+            picture_file = save_picture(form.picture.data, 'static/src/profile_pics')
             # os.remove(part.picture.replace('static','app/static'))
-            # employee.picture = picture_file
-            pass
+            employee.picture = picture_file
         employee.username = form.username.data
         if form.permissions.data:
             employee.permissions = form.permissions.data
@@ -723,14 +714,14 @@ def employeeManagementDetailsDelete(employeeID):
 
 
 #Chatbot
-# @app.route('/chatbot', methods=['GET','POST'])
-# def chatbot():
-#     return render_template('public/newChat.html', title='Chat Support')
+@app.route('/chatbot', methods=['GET','POST'])
+def chatbot():
+    return render_template('public/newChat.html', title='Chat Support')
 
-# @app.route("/get", methods=['GET','POST'])
-# def get_bot_response():
-#     userText = request.args.get('msg')
-#     return str(bot.get_response(userText))
+@app.route("/get", methods=['GET','POST'])
+def get_bot_response():
+    userText = request.args.get('msg')
+    return str(bot.get_response(userText))
 #end Chatbot
 
 

@@ -7,15 +7,13 @@ import os
 from dotenv import load_dotenv
 import stripe
 
-# os.environ['LD_LIBRARY_PATH'] = os.path.join(os.getcwd(),'otp', 'lib')
-
-
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 load_dotenv()
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///databases/main.sqlite3'
+app.config['SECRET_KEY'] = 'ab2d494b73d4d8ee5ef8f28b5d575bcd'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
