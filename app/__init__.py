@@ -12,7 +12,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 load_dotenv()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///databases/main/database.sqlite3'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///databases/main.sqlite3'
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
